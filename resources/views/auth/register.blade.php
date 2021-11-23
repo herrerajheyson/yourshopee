@@ -46,6 +46,23 @@
                                     </span>
                                 @endif
                             </div>
+                            <div class="form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-single-02"></i></span>
+                                    </div>
+                                    <select class="form-control" name="gender" id="gender" required>
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="NA">No Aplica</option>
+                                    </select>
+                                </div>
+                                @if ($errors->has('gender'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('gender') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                             <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
