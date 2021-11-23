@@ -72,7 +72,9 @@
                                     <div class="custom-control custom-control-alternative custom-checkbox">
                                         <input class="custom-control-input" id="customCheckRegister" type="checkbox" required>
                                         <label class="custom-control-label" for="customCheckRegister">
-                                            <span class="text-muted">{{ __('Estoy de acuerdo con la') }} <a href="#!" target="_blank">{{ __('política de privacidad') }}</a></span>
+                                            <span class="text-muted">{{ __('Estoy de acuerdo con la') }}
+                                                <a href="{{ asset('argon') }}/documents/política de privacidad.pdf" target="_blank">{{ __('política de privacidad') }}</a>
+                                            </span>
                                         </label>
                                     </div>
                                 </div>
