@@ -7,9 +7,16 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
-                    <div class="card-body px-lg-5 py-lg-5">
+                    <div class="card-header bg-transparent pb-3 text-center">
+                        <img style="width: 60%;" src="{{ asset('argon') }}/img/brand/logo y slogan.png" alt="">
+                    </div>
+                    <div class="card-body px-lg-5 py-lg-4">
                         <div class="text-center text-muted mb-4">
-                            <small>{{ __('Reset password') }}</small>
+                            <small>
+                                Por favor, ingresa la cuenta de correo electrónico que
+                                <br>
+                                tienes registrada para restablecer tu contraseña
+                            </small>
                         </div>
 
                         @if (session('status'))
@@ -41,7 +48,7 @@
                                 @endif
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">{{ __('Send Password Reset Link') }}</button>
+                                <button type="submit" class="btn btn-primary my-4">{{ __('Enviar enlace de restablecimiento') }}</button>
                             </div>
                         </form>
                     </div>
