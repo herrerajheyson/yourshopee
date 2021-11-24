@@ -22,7 +22,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
+    Route::resource('user', 'App\Http\Controllers\UserController');
     Route::get('profile', [
         'as' => 'profile.edit',
         'uses' => 'App\Http\Controllers\ProfileController@edit'

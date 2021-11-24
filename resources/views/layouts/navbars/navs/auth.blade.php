@@ -52,10 +52,6 @@
                         <span>{{ __('Mi Perfil') }}</span>
                     </a>
                     <a href="#" class="dropdown-item">
-                        <i class="ni ni-settings-gear-65"></i>
-                        <span>{{ __('Herramientas') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
                         <i class="ni ni-cart"></i>
                         <span>{{ __('Mi Carrito') }}</span>
                     </a>

@@ -106,13 +106,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button"
-                        aria-expanded="true" aria-controls="navbar-examples">
+                    <a class="nav-link active" href="#navbar-categories" data-toggle="collapse" role="button"
+                        aria-expanded="true" aria-controls="navbar-categories">
                         <i class="fas fa-th-list" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">{{ __('Categorías') }}</span>
                     </a>
 
-                    <div class="collapse show" id="navbar-examples">
+                    <div class="collapse show" id="navbar-categories">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('profile.edit') }}">
@@ -127,6 +127,25 @@
                         </ul>
                     </div>
                 </li>
+                @if (auth()->user()->role == 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#navbar-settings" data-toggle="collapse" role="button"
+                            aria-controls="navbar-settings">
+                            <i class="ni ni-settings-gear-65"></i>
+                            <span class="nav-link-text">{{ __('Herramientas') }}</span>
+                        </a>
+
+                        <div class="collapse" id="navbar-settings">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('user.index') }}">
+                                        {{ __('Gestión de usuarios') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
             </ul>
             <!-- Divider -->
             <hr class="my-3">
