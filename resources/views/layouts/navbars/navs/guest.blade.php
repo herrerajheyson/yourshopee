@@ -31,7 +31,7 @@
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('home') }}">
                         <i class="ni ni-cart"></i>
-                        <span class="nav-link-inner--text">{{ __('Tienda') }}</span>
+                        <span class="nav-link-inner--text">{{ __('Home') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
