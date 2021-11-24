@@ -29,7 +29,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->user()->id],
-            'gender' => ['required', 'string'],
+            'gender' => ['required', 'string', 'in:F,M,NA'],
             'address' => ['required', 'string'],
             'phone' => ['required', 'string', 'max:20'],
         ]);
