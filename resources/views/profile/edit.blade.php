@@ -2,9 +2,10 @@
 
 @section('content')
     @include('users.partials.header', [
-        'title' => __('Hola') . ' '. auth()->user()->name,
-        'description' => __('Esta es tu página de perfil. Aquí podrás visualizar la información de tu usuario y administrar los cambios que son marcados en el formulario de abajo. Éxitos.'),
-        'class' => 'col-lg-7'
+    'title' => __('Hola') . ' '. auth()->user()->name,
+    'description' => __('Esta es tu página de perfil. Aquí podrás visualizar la información de tu usuario y administrar los
+    cambios que son marcados en el formulario de abajo. Éxitos.'),
+    'class' => 'col-lg-7'
     ])
 
     <div class="container-fluid mt--7">
@@ -20,19 +21,19 @@
                                             @php
                                                 $avatar = 'woman.png';
                                             @endphp
-                                            @break
+                                        @break
                                         @case('M')
                                             @php
                                                 $avatar = 'man.png';
                                             @endphp
-                                            @break
+                                        @break
 
                                         @default
                                             @php
                                                 $avatar = 'user.png';
                                             @endphp
                                     @endswitch
-                                    <img src="{{ asset('argon') }}/img/theme/{{$avatar}}" class="rounded-circle">
+                                    <img src="{{ asset('argon') }}/img/theme/{{ $avatar }}" class="rounded-circle">
                                 </a>
                             </div>
                         </div>
@@ -61,15 +62,15 @@
                                 @if (auth()->user()->address)
                                     {{ auth()->user()->address }}
                                 @else
-                                    {{"Sin dirección registrada"}}
+                                    {{ 'Sin dirección registrada' }}
                                 @endif
                             </div>
                             <div class="h5 font-weight-300">
                                 <i class="ni mobile-button mr-2"></i>
                                 @if (auth()->user()->phone)
-                                    {{auth()->user()->phone}}
+                                    {{ auth()->user()->phone }}
                                 @else
-                                    {{"Sin Información teléfonica"}}
+                                    {{ 'Sin Información teléfonica' }}
                                 @endif
                             </div>
                         </div>
@@ -101,7 +102,10 @@
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-name">{{ __('Nombres') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nombres') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
+                                    <input type="text" name="name" id="input-name"
+                                        class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Nombres') }}"
+                                        value="{{ old('name', auth()->user()->name) }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -111,7 +115,10 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
-                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" value="{{ old('email', auth()->user()->email) }}" required>
+                                    <input type="email" name="email" id="input-email"
+                                        class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Email') }}"
+                                        value="{{ old('email', auth()->user()->email) }}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
@@ -124,11 +131,11 @@
                                     <label class="form-control-label" for="input-email">{{ __('Genero') }}</label>
                                     <select class="form-control" name="gender" id="gender" required>
                                         @php
-                                            $gender = old('gender', auth()->user()->gender)
+                                            $gender = old('gender', auth()->user()->gender);
                                         @endphp
-                                        <option value="F" @if ($gender == "F") {{ 'selected' }} @endif>Femenino</option>
-                                        <option value="M" @if ($gender == "M") {{ 'selected' }} @endif>Masculino</option>
-                                        <option value="NA" @if ($gender == "NA") {{ 'selected' }} @endif>No Aplica</option>
+                                        <option value="F" @if ($gender == 'F') {{ 'selected' }} @endif>Femenino</option>
+                                        <option value="M" @if ($gender == 'M') {{ 'selected' }} @endif>Masculino</option>
+                                        <option value="NA" @if ($gender == 'NA') {{ 'selected' }} @endif>No Aplica</option>
                                     </select>
 
                                     @if ($errors->has('gender'))
@@ -140,7 +147,10 @@
 
                                 <div class="form-group{{ $errors->has('address') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-address">{{ __('Dirección') }}</label>
-                                    <input type="text" name="address" id="input-address" class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}" placeholder="{{ __('... Cr 5 N23-4, Santa Marta, Colombia') }}" value="{{ old('address', auth()->user()->address) }}" required>
+                                    <input type="text" name="address" id="input-address"
+                                        class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('... Cr 5 N23-4, Santa Marta, Colombia') }}"
+                                        value="{{ old('address', auth()->user()->address) }}" required>
 
                                     @if ($errors->has('address'))
                                         <span class="invalid-feedback" role="alert">
@@ -151,7 +161,10 @@
 
                                 <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-phone">{{ __('Teléfono') }}</label>
-                                    <input type="text" name="phone" id="input-phone" class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}" placeholder="{{ __('3103456789') }}" value="{{ old('phone', auth()->user()->phone) }}" required>
+                                    <input type="text" name="phone" id="input-phone"
+                                        class="form-control form-control-alternative{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('3103456789') }}"
+                                        value="{{ old('phone', auth()->user()->phone) }}" required>
 
                                     @if ($errors->has('phone'))
                                         <span class="invalid-feedback" role="alert">
@@ -183,8 +196,11 @@
 
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-current-password">{{ __('Contraseña Actual') }}</label>
-                                    <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Contraseña Actual') }}" value="" required>
+                                    <label class="form-control-label"
+                                        for="input-current-password">{{ __('Contraseña Actual') }}</label>
+                                    <input type="password" name="old_password" id="input-current-password"
+                                        class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Contraseña Actual') }}" value="" required>
 
                                     @if ($errors->has('old_password'))
                                         <span class="invalid-feedback" role="alert">
@@ -193,8 +209,11 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-password">{{ __('Nueva Contraseña') }}</label>
-                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Nueva Contraseña') }}" value="" required>
+                                    <label class="form-control-label"
+                                        for="input-password">{{ __('Nueva Contraseña') }}</label>
+                                    <input type="password" name="password" id="input-password"
+                                        class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Nueva Contraseña') }}" value="" required>
 
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
@@ -203,12 +222,16 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Confirmar Nueva Contraseña') }}</label>
-                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirmar Nueva Contraseña') }}" value="" required>
+                                    <label class="form-control-label"
+                                        for="input-password-confirmation">{{ __('Confirmar Nueva Contraseña') }}</label>
+                                    <input type="password" name="password_confirmation" id="input-password-confirmation"
+                                        class="form-control form-control-alternative"
+                                        placeholder="{{ __('Confirmar Nueva Contraseña') }}" value="" required>
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Cambiar Contraseña') }}</button>
+                                    <button type="submit"
+                                        class="btn btn-success mt-4">{{ __('Cambiar Contraseña') }}</button>
                                 </div>
                             </div>
                         </form>

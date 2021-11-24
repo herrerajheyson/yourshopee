@@ -15,7 +15,8 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item dropdown">
-                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
                             @switch(auth()->user()->gender)
@@ -23,19 +24,19 @@
                                     @php
                                         $avatar = 'woman.png';
                                     @endphp
-                                    @break
+                                @break
                                 @case('M')
                                     @php
                                         $avatar = 'man.png';
                                     @endphp
-                                    @break
+                                @break
 
                                 @default
                                     @php
                                         $avatar = 'user.png';
                                     @endphp
                             @endswitch
-                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/{{$avatar}}">
+                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/{{ $avatar }}">
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
                             <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>

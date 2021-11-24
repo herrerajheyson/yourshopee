@@ -25,7 +25,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nombres') }}" type="text" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Nombres') }}" type="text" name="name"
+                                        value="{{ old('name') }}" required autofocus>
                                 </div>
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -38,7 +40,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required>
+                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Email') }}" type="email" name="email"
+                                        value="{{ old('email') }}" required>
                                 </div>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -68,7 +72,8 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Contraseña') }}" type="password" name="password" required>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Contraseña') }}" type="password" name="password" required>
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -81,16 +86,19 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="{{ __('Confirmar Contraseña') }}" type="password" name="password_confirmation" required>
+                                    <input class="form-control" placeholder="{{ __('Confirmar Contraseña') }}"
+                                        type="password" name="password_confirmation" required>
                                 </div>
                             </div>
                             <div class="row my-4">
                                 <div class="col-12">
                                     <div class="custom-control custom-control-alternative custom-checkbox">
-                                        <input class="custom-control-input" id="customCheckRegister" type="checkbox" required>
+                                        <input class="custom-control-input" id="customCheckRegister" type="checkbox"
+                                            required>
                                         <label class="custom-control-label" for="customCheckRegister">
                                             <span class="text-muted">{{ __('Estoy de acuerdo con la') }}
-                                                <a href="{{ asset('argon') }}/documents/política de privacidad.pdf" target="_blank">{{ __('política de privacidad') }}</a>
+                                                <a href="{{ asset('argon') }}/documents/política de privacidad.pdf"
+                                                    target="_blank">{{ __('política de privacidad') }}</a>
                                             </span>
                                         </label>
                                     </div>
