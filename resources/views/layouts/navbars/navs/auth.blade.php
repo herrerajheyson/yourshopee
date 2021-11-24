@@ -56,12 +56,8 @@
                         <span>{{ __('Herramientas') }}</span>
                     </a>
                     <a href="#" class="dropdown-item">
-                        <i class="ni ni-calendar-grid-58"></i>
-                        <span>{{ __('Actividad') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="ni ni-support-16"></i>
-                        <span>{{ __('Soporte') }}</span>
+                        <i class="ni ni-cart"></i>
+                        <span>{{ __('Mi Carrito') }}</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
