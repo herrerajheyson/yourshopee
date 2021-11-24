@@ -2314,7 +2314,7 @@ pre code
 .table-responsive
 {
     display: block;
-    /* overflow-x: auto; */
+    overflow-x: auto;
 
     width: 100%;
 
@@ -2324,6 +2324,18 @@ pre code
 .table-responsive > .table-bordered
 {
     border: 0;
+}
+
+table.dataTable.no-footer {
+    border-bottom: none !important;
+}
+
+.dataTables_length > label,
+.dataTables_filter > label,
+.dataTables_info,
+.dataTables_paginate.paging_simple_numbers {
+    font-size: 13px !important;
+    color: #8898aa !important;
 }
 
 .form-control
@@ -20890,7 +20902,7 @@ textarea[resize='horizontal']
 {
     font-size: .8125rem;
 
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .table.align-items-center td,

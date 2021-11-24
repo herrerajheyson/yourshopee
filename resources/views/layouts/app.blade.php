@@ -46,6 +46,33 @@
 
     <!-- Argon JS -->
     <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('table').DataTable({
+                responsive: true,
+                bDestroy: true,
+                searching : true,
+                lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"] ],
+                language: {
+                    lengthMenu: "Mostrar _MENU_ Registros por P&aacute;gina",
+                    zeroRecords: "No Encontrado",
+                    info: "Mostrando P&aacute;gina _PAGE_ de _PAGES_",
+                    infoEmpty: "No Hay Datos Disponibles",
+                    infoFiltered: "(Filtrado de _MAX_ Registros)",
+                    sSearch: "Buscar:",
+                    paginate: {
+                        previous: "Anterior",
+                        next: "Siguiente"
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
