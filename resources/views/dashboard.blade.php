@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.headers.cards')
+    @include('users.partials.header', [
+    'title' => __('Hola') . ' '. auth()->user()->name,
+    'description' => __('Bienvenido(a) a tu <strong style="font-size: 26px;">tienda en línea</strong> preferida, en <strong style="font-size: 26px;">Your Shopee</strong> encontrarás lo que buscas justo como lo necesitas. No te pierdas la oportunidad y aprovecha nuestras promociones y precios, <strong style="font-size: 26px;">¡Estan Increibles!</strong> Adelante...'),
+    'class' => 'col-lg-10'
+    ])
 
     <div class="container-fluid mt--7">
         <div class="row">
