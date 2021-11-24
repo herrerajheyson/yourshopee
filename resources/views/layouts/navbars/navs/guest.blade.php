@@ -1,9 +1,10 @@
 <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
     <div class="container px-4">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/white.png" />
+            <img src="{{ asset('argon') }}/img/brand/logo yourshopee blanco.png" />
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar-collapse-main">
@@ -12,11 +13,13 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <img src="{{ asset('argon') }}/img/brand/slogan yourshopee.png">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                        <button type="button" class="navbar-toggler" data-toggle="collapse"
+                            data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false"
+                            aria-label="Toggle sidenav">
                             <span></span>
                             <span></span>
                         </button>
@@ -27,26 +30,20 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('home') }}">
-                        <i class="ni ni-planet"></i>
-                        <span class="nav-link-inner--text">{{ __('Dashboard') }}</span>
+                        <i class="ni ni-cart"></i>
+                        <span class="nav-link-inner--text">{{ __('Tienda') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('register') }}">
                         <i class="ni ni-circle-08"></i>
-                        <span class="nav-link-inner--text">{{ __('Register') }}</span>
+                        <span class="nav-link-inner--text">{{ __('Registrarse') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('login') }}">
                         <i class="ni ni-key-25"></i>
-                        <span class="nav-link-inner--text">{{ __('Login') }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-link-icon" href="{{ route('profile.edit') }}">
-                        <i class="ni ni-single-02"></i>
-                        <span class="nav-link-inner--text">{{ __('Profile') }}</span>
+                        <span class="nav-link-inner--text">{{ __('Iniciar Sesión') }}</span>
                     </a>
                 </li>
             </ul>
