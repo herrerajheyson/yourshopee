@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Perfil del Usuario')])
+@extends('layouts.app')
 
 @section('content')
     @include('users.partials.header', [
@@ -17,14 +17,20 @@
                                 <h3 class="mb-0">Usuarios Activos</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="" class="btn btn-sm btn-primary">Agregar Usuario</a>
+                                <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">Agregar Usuario</a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12">
-                    </div>
-                    {!! $users !!}
+                    @if (session('status'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('status') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
@@ -54,9 +60,13 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="">Visualizar</a>
-                                                    <a class="dropdown-item" href="">Editar</a>
-                                                    <a class="dropdown-item" href="">Eliminar</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('user.show', ['user' => $user->id]) }}">Visualizar</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('user.edit', ['user' => $user->id]) }}">Editar</a>
+                                                    <a class="dropdown-item"
+                                                        href="#"
+                                                        onclick="destroy({!!$user->id!!})">Eliminar</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -74,6 +84,20 @@
                 </div>
             </div>
         </div>
+
+        <form id="destroy" method="POST" class="d-none">
+            @csrf
+            @method('delete')
+        </form>
+
+        <script>
+            function destroy(element) {
+                event.preventDefault();
+                let form_destroy = document.getElementById('destroy')
+                form_destroy.action = '/user/' + element
+                form_destroy.submit()
+            }
+        </script>
 
         @include('layouts.footers.auth')
     </div>
