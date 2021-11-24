@@ -31,55 +31,51 @@
                         </div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Nombres</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">Genero</th>
-                                    <th scope="col">Teléfono</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($users as $user)
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
                                     <tr>
-                                        <td>{!! $user->name !!}</td>
-                                        <td>
-                                            <a href="mailto:{!! $user->email !!}">{!! $user->email !!}</a>
-                                        </td>
-                                        <td>{!! $user->role !!}</td>
-                                        <td>{!! $user->gender !!}</td>
-                                        <td>{!! $user->phone !!}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('user.show', ['user' => $user->id]) }}">Visualizar</a>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('user.edit', ['user' => $user->id]) }}">Editar</a>
-                                                    <a class="dropdown-item"
-                                                        href="#"
-                                                        onclick="destroy({!!$user->id!!})">Eliminar</a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Genero</th>
+                                        <th scope="col">Teléfono</th>
+                                        <th scope="col"></th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {!! $users->render() !!}
-                    </div>
-                    <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-
-                        </nav>
+                                </thead>
+                                <tbody>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{!! $user->name !!}</td>
+                                            <td>
+                                                <a href="mailto:{!! $user->email !!}">{!! $user->email !!}</a>
+                                            </td>
+                                            <td>{!! $user->role !!}</td>
+                                            <td>{!! $user->gender !!}</td>
+                                            <td>{!! $user->phone !!}</td>
+                                            <td class="text-right">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('user.show', ['user' => $user->id]) }}">Visualizar</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('user.edit', ['user' => $user->id]) }}">Editar</a>
+                                                        <a class="dropdown-item"
+                                                            href="#"
+                                                            onclick="destroy({!!$user->id!!})">Eliminar</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
