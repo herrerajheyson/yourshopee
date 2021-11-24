@@ -2,7 +2,7 @@
 
 @section('content')
     @include('users.partials.header', [
-    'title' => __('Gestionar Usuarios'),
+    'title' => __('Gestionar Categorías'),
     'description' => __('Crea, Modifica y Elimina... Gestiona la información relacionada en nuestro sistema.'),
     'class' => 'col-lg-12'
     ])
@@ -14,10 +14,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Usuarios Activos</h3>
+                                <h3 class="mb-0">Categorías Activas</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">Agregar Usuario</a>
+                                <a href="{{ route('category.create') }}" class="btn btn-sm btn-primary">Agregar Categoría</a>
                             </div>
                         </div>
                     </div>
@@ -36,24 +36,16 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">Nombres</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Genero</th>
-                                        <th scope="col">Teléfono</th>
-                                        <th scope="col"></th>
+                                        <th scope="col" class="sort" data-sort="name">Nombres</th>
+                                        <th scope="col" class="sort" data-sort="description">Descripción</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($users as $user)
+                                <tbody class="list">
+                                    @foreach ($categories as $category)
                                         <tr>
-                                            <td>{!! $user->name !!}</td>
-                                            <td>
-                                                <a href="mailto:{!! $user->email !!}">{!! $user->email !!}</a>
-                                            </td>
-                                            <td>{!! $user->role !!}</td>
-                                            <td>{!! $user->gender !!}</td>
-                                            <td>{!! $user->phone !!}</td>
+                                            <td scope="row">{!! $category->name !!}</td>
+                                            <td scope="row">{!! $category->description !!}</td>
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
@@ -62,12 +54,12 @@
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item"
-                                                            href="{{ route('user.show', ['user' => $user->id]) }}">Visualizar</a>
+                                                            href="{{ route('category.show', ['category' => $category->id]) }}">Visualizar</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('user.edit', ['user' => $user->id]) }}">Editar</a>
+                                                            href="{{ route('category.edit', ['category' => $category->id]) }}">Editar</a>
                                                         <a class="dropdown-item"
                                                             href="#"
-                                                            onclick="destroy({!!$user->id!!})">Eliminar</a>
+                                                            onclick="destroy({!!$category->id!!})">Eliminar</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -90,7 +82,7 @@
             function destroy(element) {
                 event.preventDefault();
                 let form_destroy = document.getElementById('destroy')
-                form_destroy.action = '/user/' + element
+                form_destroy.action = '/category/' + element
                 form_destroy.submit()
             }
         </script>
