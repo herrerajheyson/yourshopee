@@ -139,7 +139,12 @@
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.index') }}">
-                                        {{ __('Gestión de usuarios') }}
+                                        {{ __('Gestión de Usuarios') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('category.index') }}">
+                                        {{ __('Gestión de Categorías') }}
                                     </a>
                                 </li>
                             </ul>
