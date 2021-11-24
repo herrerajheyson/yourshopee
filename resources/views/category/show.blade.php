@@ -35,6 +35,10 @@
                                 ]) !!}
                             </div>
                         </div>
+                        @include('layouts.shows.dates', [
+                            'created_at' => $category->created_at,
+                            'updated_at' => $category->updated_at,
+                        ])
                     </div>
                 </div>
             </div>

@@ -92,6 +92,10 @@
                                 <input class="form-control pl-3 pr-3" type="text" value="{{ $user->phone }}" disabled>
                             </div>
                         </div>
+                        @include('layouts.shows.dates', [
+                            'created_at' => $user->created_at,
+                            'updated_at' => $user->updated_at,
+                        ])
                     </div>
                 </div>
             </div>
