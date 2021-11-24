@@ -26,14 +26,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . auth()->user()->id],
-            'gender' => ['required', 'string', 'in:F,M,NA'],
-            'address' => ['required', 'string'],
-            'phone' => ['required', 'string', 'max:20'],
-        ]);
-
         if (auth()->user()->id == 1) {
             return back()->withErrors(['not_allow_profile' => __('No se le permite cambiar los datos de un usuario predeterminado.')]);
         }
@@ -51,11 +43,6 @@ class ProfileController extends Controller
      */
     public function password(PasswordRequest $request)
     {
-        $request->validate([
-            'old_password' => ['required', 'string', 'min:8'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-
         if (auth()->user()->id == 1) {
             return back()->withErrors(['not_allow_password' => __('No se le permite cambiar la contraseña de un usuario predeterminado.')]);
         }
