@@ -57,10 +57,20 @@
                                 {{ auth()->user()->name }}
                             </h3>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>{{ auth()->user()->address }}
+                                <i class="ni location_pin mr-2"></i>
+                                @if (auth()->user()->address)
+                                    {{ auth()->user()->address }}
+                                @else
+                                    {{"Sin dirección registrada"}}
+                                @endif
                             </div>
                             <div class="h5 font-weight-300">
-                                <i class="ni location_pin mr-2"></i>{{ auth()->user()->phone }}
+                                <i class="ni mobile-button mr-2"></i>
+                                @if (auth()->user()->phone)
+                                    {{auth()->user()->phone}}
+                                @else
+                                    {{"Sin Información teléfonica"}}
+                                @endif
                             </div>
                         </div>
                     </div>
