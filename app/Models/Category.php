@@ -22,4 +22,14 @@ class Category extends Model
         'name',
         'description',
     ];
+
+    /**
+     * Relación con las categorías asociadas.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

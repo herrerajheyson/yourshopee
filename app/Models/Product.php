@@ -39,3 +39,13 @@ class Product extends Model
         'sku',
     ];
 
+    /**
+     * Relación con las categorías asociadas.
+     *
+     * @return  \Illuminate\Support\Collection;
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+}
