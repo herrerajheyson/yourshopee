@@ -3,7 +3,7 @@
 @section('content')
     @include('users.partials.header', [
     'title' => __('Gestionar Usuarios'),
-    'description' => __('Crea, Modifica, Elimina usuarios... Gestiona la información relacionada en nuestro sistema.'),
+    'description' => __('Crea, Modifica y Elimina... Gestiona la información relacionada en nuestro sistema.'),
     'class' => 'col-lg-12'
     ])
 
