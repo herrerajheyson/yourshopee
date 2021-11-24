@@ -22,7 +22,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+    //Maestro de Usuarios
     Route::resource('user', 'App\Http\Controllers\UserController');
+
+    // Maestro de Categorías
+    Route::resource('category', App\Http\Controllers\CategoryController::class);
+
     Route::get('profile', [
         'as' => 'profile.edit',
         'uses' => 'App\Http\Controllers\ProfileController@edit'
