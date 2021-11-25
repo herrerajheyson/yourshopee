@@ -33,7 +33,7 @@
                                         $avatar = 'user.png';
                                     @endphp
                             @endswitch
-                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/{{ $avatar }}.jpg">
+                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/{{ $avatar }}">
                         </span>
                     </div>
                 </a>
@@ -145,6 +145,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('category.index') }}">
                                         {{ __('Gestión de Categorías') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('products.index') }}">
+                                        {{ __('Gestión de Productos') }}
                                     </a>
                                 </li>
                             </ul>

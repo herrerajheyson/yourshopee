@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use App\Traits\CategoryTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
-class Category extends Model
+class Product extends Model
 {
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
-    use CategoryTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +19,24 @@ class Category extends Model
      * @var string[]
      */
     protected $fillable = [
+        'sku',
         'name',
+        'brand',
+        'price',
+        'amount',
+        'discount',
+        'reference',
+        'image',
         'description',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'sku',
     ];
 
     /**
@@ -30,8 +44,8 @@ class Category extends Model
      *
      * @return  \Illuminate\Support\Collection;
      */
-    public function products()
+    public function categories()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Category::class);
     }
 }

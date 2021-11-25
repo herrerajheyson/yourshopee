@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Maestro de Categorías
     Route::resource('category', App\Http\Controllers\CategoryController::class);
 
+    // Maestro de Productos
+    Route::resource('products', App\Http\Controllers\ProductController::class);
+
     Route::get('profile', [
         'as' => 'profile.edit',
         'uses' => 'App\Http\Controllers\ProfileController@edit'
