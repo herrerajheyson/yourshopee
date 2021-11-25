@@ -23,6 +23,9 @@
 
     <!-- JQuery -->
     <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body class="{{ $class ?? '' }}">

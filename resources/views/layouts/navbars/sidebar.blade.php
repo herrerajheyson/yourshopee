@@ -113,17 +113,7 @@
                     </a>
 
                     <div class="collapse show" id="navbar-categories">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('User profile') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('User Management') }}
-                                </a>
-                            </li>
+                        <ul id="menu_categories" class="nav nav-sm flex-column">
                         </ul>
                     </div>
                 </li>
@@ -161,4 +151,20 @@
             <hr class="my-3">
         </div>
     </div>
+    <script type="module">
+        import {getMaster} from '/argon/js/utils.js'
+
+        getMaster('/api/categories_selector', {}).then((response) => {
+            let html_menu_categories = '<li class="nav-item"><a class="nav-link" href="/store/%id_category%">%name_menu%</a></li>'
+            let menu_categories = ''
+            for (const key in response.data) {
+                if (Object.hasOwnProperty.call(response.data, key)) {
+                    const element = response.data[key];
+                    menu_categories += html_menu_categories.replace('%name_menu%', element).replace('%id_category%', key)
+                }
+            }
+
+            $('#menu_categories').html(menu_categories)
+        })
+    </script>
 </nav>
