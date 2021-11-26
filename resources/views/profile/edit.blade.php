@@ -150,7 +150,7 @@
                                     <input type="text" name="address" id="input-address"
                                         class="form-control form-control-alternative{{ $errors->has('address') ? ' is-invalid' : '' }}"
                                         placeholder="{{ __('... Cr 5 N23-4, Santa Marta, Colombia') }}"
-                                        value="{{ old('address', auth()->user()->address) }}" required>
+                                        value="{{ old('address', auth()->user()->address) }}">
 
                                     @if ($errors->has('address'))
                                         <span class="invalid-feedback" role="alert">

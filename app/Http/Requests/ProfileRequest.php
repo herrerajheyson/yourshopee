@@ -29,7 +29,7 @@ class ProfileRequest extends FormRequest
             'name' => ['required', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique((new User)->getTable())->ignore(auth()->id())],
             'gender' => ['required', 'string', 'in:F,M,NA'],
-            'address' => ['required', 'string'],
+            'address' => ['nullable', 'string'],
             'phone' => ['required', 'string', 'max:20'],
         ];
     }

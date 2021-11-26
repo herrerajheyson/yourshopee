@@ -50,6 +50,22 @@
                                     </span>
                                 @endif
                             </div>
+                            <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-mobile-button"></i></span>
+                                    </div>
+                                    <input type="text" name="phone" id="input-phone"
+                                        class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('3103456789') }}"
+                                        value="{{ old('phone') }}" required>
+                                </div>
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                             <div class="form-group{{ $errors->has('gender') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative mb-3">
                                     <div class="input-group-prepend">
