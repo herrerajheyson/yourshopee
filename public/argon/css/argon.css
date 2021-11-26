@@ -2338,6 +2338,11 @@ table.dataTable.no-footer {
     color: #8898aa !important;
 }
 
+.image-store {
+    width: 80% !important;
+    margin: auto;
+}
+
 .custom-pagination > nav > div.hidden {
     display: none !important;
 }
