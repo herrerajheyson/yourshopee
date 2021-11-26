@@ -2338,6 +2338,10 @@ table.dataTable.no-footer {
     color: #8898aa !important;
 }
 
+.custom-pagination > nav > div.hidden {
+    display: none !important;
+}
+
 .form-control
 {
     font-size: 1rem;
