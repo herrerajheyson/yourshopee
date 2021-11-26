@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ProductTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,7 @@ class Product extends Model
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
+    use ProductTrait;
 
     /**
      * The attributes that are mass assignable.

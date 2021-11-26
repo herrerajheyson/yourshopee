@@ -15,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('home'));
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\StoreController::class, 'index'])->name('home');
+Route::get('/store/{category}', [App\Http\Controllers\StoreController::class, 'indexByCategory'])->name('bycategory');
+
 
 Route::group(['middleware' => 'auth'], function () {
     //Maestro de Usuarios
