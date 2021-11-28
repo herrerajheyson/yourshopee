@@ -71,6 +71,14 @@
             {!!$products->render()!!}
         </span>
 
+        @if (!$product_amount)
+            @php $product_amount = null; @endphp
+        @endif
+
+        @include('layouts.buttoncar', [
+            'amount' => Session::has('product_amount') ? Session::get('product_amount') : $product_amount
+        ])
+
         @include('layouts.footers.auth')
     </div>
 @endsection

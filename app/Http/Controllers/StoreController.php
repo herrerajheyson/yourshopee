@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Traits\CarTrait;
 
 class StoreController extends Controller
 {
+    Use CarTrait;
     /**
      * Show the application dashboard.
      *
@@ -15,7 +17,10 @@ class StoreController extends Controller
     public function index()
     {
         $products = Product::getAllProducts();
-        return view('dashboard', compact('products'));
+        $value = $this->getProductsOnShoppingCart();
+        $product_amount = array_sum($value);
+
+        return view('dashboard', compact('products', 'product_amount'));
     }
 
     /**
@@ -26,6 +31,9 @@ class StoreController extends Controller
     public function indexByCategory(Category $category)
     {
         $products = Product::getAllProducts($category->id);
-        return view('bycategory', compact('products'));
+        $value = $this->getProductsOnShoppingCart();
+        $product_amount = array_sum($value);
+
+        return view('bycategory', compact('products', 'product_amount'));
     }
 }
