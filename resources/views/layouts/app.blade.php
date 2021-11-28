@@ -55,7 +55,7 @@
 
     <script>
         $(document).ready(function() {
-            $('table').DataTable({
+            $('.table').DataTable({
                 responsive: true,
                 bDestroy: true,
                 searching : true,

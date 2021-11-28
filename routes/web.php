@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\StoreController::class, 'index'])->name('home');
 Route::get('/store/{category}', [App\Http\Controllers\StoreController::class, 'indexByCategory'])->name('bycategory');
 
+Route::post('addtocar', 'App\Http\Controllers\CarController@addToShoppingCart')->name('addtocar');
 
 Route::group(['middleware' => 'auth'], function () {
     //Maestro de Usuarios

@@ -2343,6 +2343,13 @@ table.dataTable.no-footer {
     margin: auto;
 }
 
+.custom-alert-fixed {
+    position: fixed !important;
+    width: 290px;
+    z-index: 9;
+    right: 1%;
+}
+
 .custom-pagination > nav > div.hidden {
     display: none !important;
 }
