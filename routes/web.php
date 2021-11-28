@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\StoreController::class, 'index'])->name('home');
 Route::get('/store/{category}', [App\Http\Controllers\StoreController::class, 'indexByCategory'])->name('bycategory');
 
+Route::post('addtocar', 'App\Http\Controllers\CarController@addToShoppingCart')->name('addtocar');
+Route::post('removefromcar', 'App\Http\Controllers\CarController@removeFromShoppingCart')->name('removefromcar');
+Route::get('cleancart', 'App\Http\Controllers\CarController@cleanShoppingCart')->name('cleancart');
+Route::get('showcar', [
+    'as' => 'car.show',
+    'uses' => 'App\Http\Controllers\CarController@show'
+]);
 
 Route::group(['middleware' => 'auth'], function () {
     //Maestro de Usuarios

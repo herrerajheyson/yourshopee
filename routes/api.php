@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('categories_selector', 'App\Http\Controllers\CategoryController@categoriesSelector');
-
+Route::put('updatecar', 'App\Http\Controllers\CarController@updateShoppingCartQuantity')->name('updatecar');

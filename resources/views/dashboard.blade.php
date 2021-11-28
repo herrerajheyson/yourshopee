@@ -15,6 +15,23 @@
     ])
 
     <div class="container-fluid mt--7">
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show custom-alert-fixed" role="alert">
+                {{ session('status') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if ($errors->has('amount'))
+            <div class="alert alert-warning alert-dismissible fade show custom-alert-fixed" role="alert">
+                {{ $errors->first('amount') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="row">
             @foreach ($products as $item)
                 <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-5">
@@ -29,16 +46,20 @@
                                 <h2><span class="badge badge-success">-{!!$item->discount!!}%</span> <strong>{!!'$ ' . number_format($item->price, 2)!!}</strong></h2>
                                 <p class="card-text" style="font-size: 14px;">{!!$item->description!!}</p>
                             </p>
-                            <span style="display: inline-flex;">
-                                {!! Form::number('amount', 0, [
-                                    'class' => 'form-control mr-2',
-                                    'min' => 0,
-                                    'max' => $item->amount
-                                ]) !!}
-                                <a href="#" class="btn btn-primary">Lo Quiero!</a>
-                                <h2>
-                                    <span class="badge badge-warning">{!!$item->amount!!} Ud</span>
-                                </h2>
+                            <span>
+                                {{ Form::open(array('url' => route('addtocar'), 'method' => 'POST', 'role' => 'form', 'style' => 'display: inline-flex')) }}
+                                    {!! Form::number('amount', 1, [
+                                        'class' => 'form-control mr-2',
+                                        'min' => 0,
+                                        'max' => $item->amount
+                                    ]) !!}
+                                    {!! Form::hidden('sku', $item->sku) !!}
+                                    {!! Form::hidden('name', $item->name) !!}
+                                    {!! Form::submit(__('Lo Quiero!'), ["class" => "btn btn-primary"]) !!}
+                                    <h2>
+                                        <span class="badge badge-warning">{!!$item->amount!!} Ud</span>
+                                    </h2>
+                                {!! Form::close() !!}
                             </span>
                         </div>
                     </div>
@@ -50,11 +71,14 @@
             {!!$products->render()!!}
         </span>
 
+        @if (!$product_amount)
+            @php $product_amount = null; @endphp
+        @endif
+
+        @include('layouts.buttoncar', [
+            'amount' => Session::has('product_amount') ? Session::get('product_amount') : $product_amount
+        ])
+
         @include('layouts.footers.auth')
     </div>
 @endsection
-
-@push('js')
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-@endpush
