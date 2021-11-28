@@ -27,4 +27,8 @@ async function getMaster(url, params) {
     return axios.get(url, { params: params });
 }
 
-export { loadImageFromOutput, getMaster };
+async function updateMaster(url, params) {
+    return axios.put(url, params)
+}
+
+export { loadImageFromOutput, getMaster, updateMaster };

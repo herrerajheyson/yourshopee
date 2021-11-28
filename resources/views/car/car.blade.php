@@ -33,6 +33,10 @@
             </div>
         @endif
 
+        <div id="messageapi" class="alert alert-success alert-dismissible fade show custom-alert-fixed d-none" role="alert">
+            {{ $errors->first('amount') }}
+        </div>
+
         <div class="row">
             <div class="col-12 col-md-9 mb-5 pr-1">
                 <div class="card shadow">
@@ -76,9 +80,11 @@
                                             </td>
                                             <td scope="row" class="text-center">
                                                 {!! Form::number('amount', $product->requested_amount, [
-                                                    'class' => 'form-control mr-2 text-center',
+                                                    'class' => 'form-control mr-2 text-center updatecar',
                                                     'min' => 0,
-                                                    'max' => $product->amount
+                                                    'max' => $product->amount,
+                                                    'data-sku' => $product->sku,
+                                                    'data-session-user' => Session::get('user_shopping_cart')
                                                 ]) !!}
                                             </td>
                                             <td scope="row" class="text-center">
@@ -106,15 +112,15 @@
                             <tbody>
                                 <tr>
                                     <td class="text-left"><strong>Subtotal</strong></td>
-                                    <td class="text-right">{!!'$' . number_format($subtotal)!!}</td>
+                                    <td class="text-right" id="subtotal">{!!'$' . number_format($subtotal)!!}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-left"><strong>Descuento</strong></td>
-                                    <td class="text-right">{!!'$' . number_format($discount)!!}</td>
+                                    <td class="text-right" id="discount">{!!'$' . number_format($discount)!!}</td>
                                 </tr>
                                 <tr>
                                     <td class="text-left"><strong>Total</strong></td>
-                                    <td class="text-right">{!!'$' . number_format($total)!!}</td>
+                                    <td class="text-right" id="total">{!!'$' . number_format($total)!!}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -127,6 +133,28 @@
                 </div>
             </div>
         </div>
+
+        <script type="module">
+            import {updateMaster} from '/argon/js/utils.js'
+
+            $('.updatecar').click(function () {
+                updateMaster('/api/updatecar', {
+                    'sku': $(this).data('sku'),
+                    'session_key': $(this).data('session-user'),
+                    'amount': parseInt($(this).val()),
+                }).then((response) => {
+                    $('#subtotal').html('$' + new Intl.NumberFormat("es-CO").format(response.data.subtotal))
+                    $('#discount').html('$' + new Intl.NumberFormat("es-CO").format(response.data.discount))
+                    $('#total').html('$' + new Intl.NumberFormat("es-CO").format(response.data.total))
+                    $('#messageapi').html(response.data.message)
+
+                    $('#messageapi').removeClass('d-none')
+                    setTimeout(() => {
+                        $('#messageapi').addClass('d-none')
+                    }, 3000);
+                })
+            })
+        </script>
 
         @include('layouts.footers.auth')
     </div>
