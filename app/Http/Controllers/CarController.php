@@ -140,6 +140,17 @@ class CarController extends Controller implements ShoppingCart
         ), 200);
     }
 
+    /**
+     * Limpiar el carro de compras
+     */
+    public function cleanShoppingCart()
+    {
+        Cache::flush();
+        Session::flush();
+
+        return back()
+            ->withStatus(__('El carrito de compras ha sido vaciado satisfactoriamente.'));
+    }
 
     /**
      * Display the specified resource.

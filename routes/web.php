@@ -27,6 +27,7 @@ Route::get('/store/{category}', [App\Http\Controllers\StoreController::class, 'i
 
 Route::post('addtocar', 'App\Http\Controllers\CarController@addToShoppingCart')->name('addtocar');
 Route::post('removefromcar', 'App\Http\Controllers\CarController@removeFromShoppingCart')->name('removefromcar');
+Route::get('cleancart', 'App\Http\Controllers\CarController@cleanShoppingCart')->name('cleancart');
 Route::get('showcar', [
     'as' => 'car.show',
     'uses' => 'App\Http\Controllers\CarController@show'

@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-3 mb-5 pl-1">
+            <div class="col-12 col-md-3 mb-5 pl-1 pr-1">
                 <div class="card shadow">
                     <div class="card-body px-lg-4 py-lg-4">
                         <table style="width: 100%;">
@@ -155,6 +155,12 @@
                 })
             })
         </script>
+
+        <div class="d-flex justify-content-end  position-fixed fixed-bottom mb-3 mr-4">
+            <a href="{{ route('cleancart') }}" type="button" class="btn btn-warning">
+                Borrar Todo
+            </a>
+        </div>
 
         @include('layouts.footers.auth')
     </div>
