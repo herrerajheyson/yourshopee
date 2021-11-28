@@ -26,6 +26,7 @@ Route::get('/home', [App\Http\Controllers\StoreController::class, 'index'])->nam
 Route::get('/store/{category}', [App\Http\Controllers\StoreController::class, 'indexByCategory'])->name('bycategory');
 
 Route::post('addtocar', 'App\Http\Controllers\CarController@addToShoppingCart')->name('addtocar');
+Route::post('removefromcar', 'App\Http\Controllers\CarController@removeFromShoppingCart')->name('removefromcar');
 Route::get('showcar', [
     'as' => 'car.show',
     'uses' => 'App\Http\Controllers\CarController@show'

@@ -49,6 +49,36 @@ class CarController extends Controller implements ShoppingCart
             ->with('product_amount', $product_amount);
     }
 
+    /**
+     * Borra productos del carro de compras
+     * @param \Illuminate\Http\Request $request
+     */
+    public function removeFromShoppingCart(Request $request)
+    {
+        $request->validate([
+            'sku' => ['required', 'string'],
+        ]);
+
+        $value = $this->getProductsOnShoppingCart();
+
+        if (count($value) > 0) {
+            if (!isset($value[$request->sku])) {
+                return back()
+                    ->withStatus(__('El producto seleccionado no se encuentra en el carro de compras.'))
+                    ->with('product_amount', array_sum($value));
+            }
+
+            unset($value[$request->sku]);
+            $product_amount = array_sum($value);
+            Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(30));
+        } else {
+            return back()->withStatus(__('El carro de compras esta vacío.'))->with('product_amount', 0);
+        }
+
+        return back()
+            ->withStatus(__('El producto "' . $request->name . '" ha sido eliminado del carrito de compras satisfactoriamente.'))
+            ->with('product_amount', $product_amount);
+    }
 
     /**
      * Actualizar la cantidad de un articulo del carro de compras
