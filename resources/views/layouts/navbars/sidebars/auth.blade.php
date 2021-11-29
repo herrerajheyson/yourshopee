@@ -102,7 +102,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-cart text-primary"></i> {{ __('Home') }}
+                        <i class="ni ni-shop text-primary"></i> {{ __('Home') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('orders.myorders') }}">
+                        <i class="ni ni-basket text-primary"></i> {{ __('Mis Pedidos') }}
                     </a>
                 </li>
                 <li class="nav-item">
@@ -129,17 +134,22 @@
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('user.index') }}">
-                                        {{ __('Gestión de Usuarios') }}
+                                        <i class="ni ni-single-02 text-primary"></i>{{ __('Gestión de Usuarios') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('category.index') }}">
-                                        {{ __('Gestión de Categorías') }}
+                                        <i class="ni ni-single-copy-04 text-primary"></i>{{ __('Gestión de Categorías') }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('products.index') }}">
-                                        {{ __('Gestión de Productos') }}
+                                        <i class="ni ni-books text-primary"></i>{{ __('Gestión de Productos') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('orders.index') }}">
+                                        <i class="ni ni-basket text-primary"></i> {{ __('Gestión de Pedidos') }}
                                     </a>
                                 </li>
                             </ul>

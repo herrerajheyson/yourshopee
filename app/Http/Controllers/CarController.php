@@ -36,13 +36,15 @@ class CarController extends Controller implements ShoppingCart
             }
 
             $product_amount = array_sum($value);
-            Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(30));
+            Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(600));
         } else {
             $key = Auth::guest() ? 'guest' . time() : auth()->user()->id;
             Session::put('user_shopping_cart', $key);
-            Cache::add($key, json_encode([$request->sku => $request->amount]), now()->addMinutes(30));
+            Cache::add($key, json_encode([$request->sku => $request->amount]), now()->addMinutes(600));
             $product_amount = $request->amount;
         }
+
+        $this->updateKeyFromCacheAndSession();
 
         return back()
             ->withStatus(__('El producto "' . $request->name . '" ha sido agregado al carrito de compras satisfactoriamente.'))
@@ -59,6 +61,8 @@ class CarController extends Controller implements ShoppingCart
             'sku' => ['required', 'string'],
         ]);
 
+        $this->updateKeyFromCacheAndSession();
+
         $value = $this->getProductsOnShoppingCart();
 
         if (count($value) > 0) {
@@ -70,7 +74,7 @@ class CarController extends Controller implements ShoppingCart
 
             unset($value[$request->sku]);
             $product_amount = array_sum($value);
-            Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(30));
+            Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(600));
         } else {
             return back()->withStatus(__('El carro de compras esta vacío.'))->with('product_amount', 0);
         }
@@ -92,7 +96,18 @@ class CarController extends Controller implements ShoppingCart
             'amount' => ['required', 'integer', 'min:1'],
         ]);
 
-        $value = $this->getProductsOnShoppingCart($request->session_key);
+        $this->updateKeyFromCacheAndSession();
+
+        if (auth()->check()) {
+            $request->merge([
+                'session_key' => auth()->user()->id
+            ]);
+
+            $value = $this->getProductsOnShoppingCart($request->session_key);
+        } else {
+            $value = $this->getProductsOnShoppingCart($request->session_key);
+        }
+
         $subtotal = 0;
         $discount = 0;
         $total = 0;
@@ -101,8 +116,8 @@ class CarController extends Controller implements ShoppingCart
         if (count($value) > 0) {
             if (!isset($value[$request->sku])) {
                 return back()
-                ->withStatus(__('El producto seleccionado no se encuentra en el carro de compras.'))
-                ->with('product_amount', array_sum($value));
+                    ->withStatus(__('El producto seleccionado no se encuentra en el carro de compras.'))
+                    ->with('product_amount', array_sum($value));
             }
 
             $value[$request->sku] = $request->amount;
@@ -117,9 +132,9 @@ class CarController extends Controller implements ShoppingCart
             $product_amount = array_sum($value);
 
             if (isset($request->session_key)) {
-                Cache::put($request->session_key, json_encode($value), now()->addMinutes(30));
+                Cache::put($request->session_key, json_encode($value), now()->addMinutes(600));
             } else {
-                Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(30));
+                Cache::put(Session::get('user_shopping_cart'), json_encode($value), now()->addMinutes(600));
             }
         } else {
             return response()->json(array(
@@ -158,6 +173,7 @@ class CarController extends Controller implements ShoppingCart
      */
     public function show()
     {
+        $this->updateKeyFromCacheAndSession();
         $value = $this->getProductsOnShoppingCart();
         $subtotal = 0;
         $discount = 0;
@@ -183,5 +199,22 @@ class CarController extends Controller implements ShoppingCart
         }
 
         return view('car.car', compact('message', 'product_amount', 'products', 'subtotal', 'discount', 'total'));
+    }
+
+    /**
+     * Actualizar la llave de la session y la cache
+     */
+    private function updateKeyFromCacheAndSession()
+    {
+        if (auth()->check() && Session::has('user_shopping_cart')) {
+            $key = Session::get('user_shopping_cart');
+            $value = Cache::get($key);
+            $value = json_decode($value, true);
+            Session::remove('user_shopping_cart');
+            Cache::forget($key);
+
+            Session::put('user_shopping_cart', auth()->user()->id);
+            Cache::add(auth()->user()->id, json_encode($value), now()->addMinutes(600));
+        }
     }
 }

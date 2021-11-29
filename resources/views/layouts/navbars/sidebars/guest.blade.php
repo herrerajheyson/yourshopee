@@ -45,7 +45,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
-                        <i class="ni ni-cart text-primary"></i> {{ __('Home') }}
+                        <i class="ni ni-shop text-primary"></i> {{ __('Home') }}
                     </a>
                 </li>
                 <li class="nav-item">

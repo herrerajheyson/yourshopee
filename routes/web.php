@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CarController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +33,19 @@ Route::get('showcar', [
     'uses' => 'App\Http\Controllers\CarController@show'
 ]);
 
+Route::get('orders/myorders', [
+    'as' => 'orders.myorders',
+    'uses' => 'App\Http\Controllers\OrderController@myOrders'
+]);
+Route::post('orders', [
+    'as' => 'orders.store',
+    'uses' => 'App\Http\Controllers\OrderController@order'
+]);
+Route::get('orderfirststep', 'App\Http\Controllers\OrderController@orderFirstStep')->name('orderfirststep');
+Route::get('orderfirststep/{order}', 'App\Http\Controllers\OrderController@getOrderFirstStep')->name('orderfirststep.option');
+
+Route::post('register/order', 'App\Http\Controllers\Auth\RegisterController@registerFromOrder')->name('register.order');
+
 Route::group(['middleware' => 'auth'], function () {
     //Maestro de Usuarios
     Route::resource('user', 'App\Http\Controllers\UserController');
@@ -42,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Maestro de Productos
     Route::resource('products', App\Http\Controllers\ProductController::class);
+
+    Route::resource('orders', OrderController::class)->except(['store', 'create', 'edit', 'update']);
 
     Route::get('profile', [
         'as' => 'profile.edit',

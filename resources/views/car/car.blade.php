@@ -125,7 +125,7 @@
                             </tbody>
                         </table>
                         <hr>
-                        {!! Form::open(array('url' => route('removefromcar'), 'method' => 'POST', 'role' => 'form')) !!}
+                        {!! Form::open(array('url' => route('orders.store'), 'method' => 'POST', 'role' => 'form')) !!}
                             {!! Form::submit('Ir a Pagar', ['class' => 'btn btn-success btn-lg', 'style' => 'width: 100%;']) !!}
                         {!! Form::close() !!}
                         <a href="{{ route('home') }}" role="button" class="btn btn-secondary btn-lg mt-3" style="width: 100%;">Seguir Comprando</a>
