@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
-use App\Http\Requests\UpdateOrderRequest;
+use App\Models\ApiResponseOrder;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Objects\PaymentGateway;
 use App\Traits\CarTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -204,5 +205,132 @@ class OrderController extends Controller
         $order->delete();
 
         return back()->withStatus(__($message));
+    }
+
+    /**
+     * Procesar el pago con la pasarela de pago
+     * @param Illuminate\Http\Request $request
+     */
+    public function payment(Request $request)
+    {
+        $request->validate([
+            'amount' => ['required', 'numeric'],
+            'order' => ['required', 'integer'],
+        ]);
+
+        $order_pending = ApiResponseOrder::where('order_id', $request->order)->where('status', 'PENDING')->get();
+        $placetopay = new PaymentGateway();
+
+        if (count($order_pending) == 0) {
+            $reference = $request->order;
+            $request_api = [
+                'payment' => [
+                    'reference' => $reference,
+                    'description' => 'Testing payment',
+                    'amount' => [
+                        'currency' => $request->currency,
+                        'total' => $request->amount,
+                    ],
+                ],
+                'expiration' => date('c', strtotime('+1 days')),
+                'returnUrl' => 'http://localhost:8000/payment/' . $reference,
+                'ipAddress' => '127.0.0.1',
+                'userAgent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36',
+            ];
+
+            $response = $placetopay->getPlaceToPay()->request($request_api);
+
+            if ($response->isSuccessful()) {
+                // STORE THE $response->requestId() and $response->processUrl() on your DB associated with the payment order
+                // Redirect the client to the processUrl or display it on the JS extension
+                $api_response = new ApiResponseOrder();
+                $api_response->order_id = $request->order;
+                $api_response->request_id = $response->requestId();
+                $api_response->process_url = $response->processUrl();
+                $api_response->status = 'PENDING';
+                $api_response->save();
+
+                return redirect()->to($response->processUrl());
+            } else {
+                // There was some error so check the message and log it
+                return back()->withStatus($response->status()->message());
+            }
+        } else {
+            $response = $placetopay->getPlaceToPay()->query($order_pending[0]->request_id);
+
+            if ($response->isSuccessful()) {
+                if ($response->status()->isApproved()) {
+                    return redirect(route('payment.approved'));
+                }
+
+                if (in_array($response->status()->status(), ['REJECTED', 'PENDING'])) {
+                    if ($response->status()->status() == 'REJECTED') {
+                        $order_pending[0]->status = $response->status()->status();
+                        $order_pending[0]->update();
+                        $order_pending[0] = $order_pending[0];
+                    }
+
+                    return redirect(route('orderfirststep.option', ['order' => $request->order]))
+                        ->withStatus($response->status()->message() . "\n");
+                }
+            } else {
+                // There was some error with the connection so check the message
+                return back()->withStatus($response->status()->message() . "\n");
+            }
+        }
+    }
+
+    /**
+     * Retorno de la pasarela de pago
+     * @param Illuminate\Http\Request $request
+     */
+    public function returnUrl(Request $request, $reference)
+    {
+        $placetopay = new PaymentGateway();
+        $order_pending = ApiResponseOrder::where('order_id', $reference)->get();
+        $response = $placetopay->getPlaceToPay()->query($order_pending[0]->request_id);
+
+        if ($response->isSuccessful()) {
+            if ($response->status()->isApproved()) {
+                return redirect(route('payment.approved'));
+            }
+
+            if (in_array($response->status()->status(), ['REJECTED', 'PENDING'])) {
+                if ($response->status()->status() == 'REJECTED') {
+                    $order_pending[0]->status = $response->status()->status();
+                    $order_pending[0]->update();
+                    $order_pending[0] = $order_pending[0];
+                }
+
+                return redirect(route('orderfirststep.option', ['order' => $reference]))
+                    ->withStatus($response->status()->message() . "\n");
+            }
+        } else {
+            // There was some error with the connection so check the message
+            return back()->withStatus($response->status()->message() . "\n");
+        }
+    }
+
+    /**
+     * Retorno de la pasarela de pago a la vista de aprobación de pago
+     * @param Illuminate\Http\Request $request
+     */
+    public function paymentApproved(Request $request, $reference)
+    {
+        $order_pending = ApiResponseOrder::where('order_id', $reference)->get();
+        $order_pending[0]->status = 'PAYED';
+        $order_pending[0]->save();
+
+        $order = $order_pending->order()->get();
+        $order[0]->status = 'PAYED';
+        $order[0]->save();
+
+        $info = $this->assembleDetail($order[0]);
+        $detail = $info[0];
+        $subtotal = $info[1];
+        $discount = $info[2];
+        $total = $info[3];
+        $order = $order;
+        return view('orders.approved', compact('detail', 'order', 'subtotal', 'discount', 'total'));
     }
 }

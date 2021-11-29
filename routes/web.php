@@ -58,6 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('orders', OrderController::class)->except(['store', 'create', 'edit', 'update']);
 
+    Route::post('payment', 'App\Http\Controllers\OrderController@payment')->name('payment');
+    Route::get('payment/{reference}', 'App\Http\Controllers\OrderController@returnUrl')->name('payment.return_url');
+    Route::get('payment/approved/{reference}', 'App\Http\Controllers\OrderController@paymentApproved')->name('payment.approved');
+
     Route::get('profile', [
         'as' => 'profile.edit',
         'uses' => 'App\Http\Controllers\ProfileController@edit'

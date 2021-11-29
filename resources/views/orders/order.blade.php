@@ -12,6 +12,15 @@
             <div class="col-12 col-md-8 mb-5 pr-1">
                 <div class="card shadow">
                     <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{ session('status') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
                         <div class="accordion" id="payment_info">
                             <div class="card">
                               <div class="card-header" id="headingOne">
@@ -63,7 +72,19 @@
                                 </div>
                                 <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#payment_info">
                                     <div class="card-body">
-
+                                        {{ Form::open(array(
+                                            'url' => route('payment'),
+                                            'method' => 'POST',
+                                            'role' => 'form',
+                                            'enctype' => 'multipart/form-data'
+                                        )) }}
+                                            {!! Form::hidden('amount', $total, []) !!}
+                                            {!! Form::hidden('currency', 'COP', []) !!}
+                                            {!! Form::hidden('order', $order, []) !!}
+                                            <div class="text-center">
+                                                {!! Form::submit(__('Ir a la pasarale de pago!'), ['class' => 'btn btn-primary mt-4']) !!}
+                                            </div>
+                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                                 </div>
