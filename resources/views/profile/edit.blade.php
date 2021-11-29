@@ -43,12 +43,12 @@
                             <div class="col">
                                 <div class="card-profile-stats d-flex justify-content-center mt-md-6">
                                     <div>
-                                        <span class="heading">22</span>
-                                        <span class="description">{{ __('Compras') }}</span>
+                                        <span class="heading">{{$purchases_made}}</span>
+                                        <span class="description">{{ __('Compras Realizadas') }}</span>
                                     </div>
                                     <div>
-                                        <span class="heading">10</span>
-                                        <span class="description">{{ __('Artículos') }}</span>
+                                        <span class="heading">{{$items_purchased}}</span>
+                                        <span class="description">{{ __('Artículos Comprados') }}</span>
                                     </div>
                                 </div>
                             </div>

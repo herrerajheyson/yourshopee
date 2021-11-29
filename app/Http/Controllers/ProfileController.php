@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
+use App\Models\Order;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -15,7 +16,16 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        $purchases_made = 0;
+        $items_purchased = 0;
+        $orders = Order::where('customer_email', auth()->user()->email)->where('status', 'PAYED')->get();
+
+        foreach ($orders as $key => $value) {
+            $purchases_made += 1;
+            $items_purchased += count($value->details);
+        }
+
+        return view('profile.edit', compact('purchases_made', 'items_purchased'));
     }
 
     /**
